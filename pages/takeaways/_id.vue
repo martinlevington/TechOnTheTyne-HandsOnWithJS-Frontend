@@ -18,7 +18,7 @@
                     <p>{{ item.description }}</p>
                 </div>
                 <div class="uk-card-footer">
-                  <button class="uk-button uk-button-primary">Add to basket</button>
+                  <button class="uk-button uk-button-primary" @click="addToBasket(item)">Add to Basket</button>
                 </div>
             </div>
         </div>
@@ -34,7 +34,9 @@
 </div>  
 </template>
 
-<script>  
+<script>
+import { mapMutations } from 'vuex'
+import Basket from '~/components/Basket.vue' 
 import takeawayQuery from '~/apollo/queries/takeaway/takeaway'
 
 export default {  
@@ -51,6 +53,15 @@ export default {
         return { id: this.$route.params.id }
       }
     }
+  },
+  components: {
+    Basket
+  },
+  methods:{
+    ...mapMutations({
+      addToBasket: 'basket/add',
+      removeFromBasket: 'basket/remove'
+    }),
   }
 }
 </script>
